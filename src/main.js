@@ -15,7 +15,12 @@ var makePosterButton = document.querySelector(".show-form");
 var savePosterButton = document.querySelector(".show-saved");
 var nevermindBackButton = document.querySelector(".show-main");
 var mainBackButton = document.querySelector(".back-to-main");
+var showMadePosterButton = document.querySelector(".make-poster");
 
+//QS USER ENTRIES
+var userInputImage= document.getElememtByID("poster-image-url");
+var userInputTitle= document.getElememtByID("poster-title");
+var userInputQuote= document.getElememtByID("poster-quote");
 
 // PROVIDED DATA 👇
 var images = [
@@ -127,6 +132,7 @@ nevermindBackButton.addEventListener('click', nevermindBack);
 savePosterButton.addEventListener('click', unhideSavePoster);
 mainBackButton.addEventListener('click', mainBack);
 
+showMadePosterButton.addEventListener('click',)
 
 // FUNCTIONS AND EVENT HANDLERS 👇
 function getRandomIndex(array) {
@@ -160,3 +166,14 @@ function mainBack() {
   savePoster.classList.add("hidden");
   mainPoster.classList.remove("hidden");
 };
+
+
+function userMakePoster() {
+  var newPoster = new Poster(
+    userInputImage.value,
+    userInputTitle.value,
+    userInputQuote.value,
+  )
+  images.push(newPoster.imageURL)
+  imageElement
+}
