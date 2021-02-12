@@ -15,12 +15,12 @@ var makePosterButton = document.querySelector(".show-form");
 var savePosterButton = document.querySelector(".show-saved");
 var nevermindBackButton = document.querySelector(".show-main");
 var mainBackButton = document.querySelector(".back-to-main");
-var showMadePosterButton = document.querySelector(".make-poster");
+var showMyPosterButton = document.querySelector(".make-poster");
 
 //QS USER ENTRIES
-var userInputImage= document.getElememtByID("poster-image-url");
-var userInputTitle= document.getElememtByID("poster-title");
-var userInputQuote= document.getElememtByID("poster-quote");
+var userInputImage= document.querySelector("#poster-image-url");
+var userInputTitle= document.querySelector("#poster-title");
+var userInputQuote= document.querySelector("#poster-quote");
 
 // PROVIDED DATA 👇
 var images = [
@@ -124,21 +124,23 @@ var savedPosters = [];
 var currentPoster;
 
 // EVENT LISTNERS 👇
-window.addEventListener('load', randomPoster); //when window opens load randomPoster function
-buttonRandom.addEventListener('click', randomPoster); //button that is random does randomPoster function
-
-makePosterButton.addEventListener('click', unhideMainPoster);
-nevermindBackButton.addEventListener('click', nevermindBack);
-savePosterButton.addEventListener('click', unhideSavePoster);
-mainBackButton.addEventListener('click', mainBack);
-
-showMadePosterButton.addEventListener('click',)
+//iteration 0
+window.addEventListener("load", randomPoster); //when window opens load randomPoster function
+buttonRandom.addEventListener("click", randomPoster); //button that is random does randomPoster function
+//iteration1
+makePosterButton.addEventListener("click", unhideMainPoster);
+nevermindBackButton.addEventListener("click", nevermindBack);
+savePosterButton.addEventListener("click", unhideSavePoster);
+mainBackButton.addEventListener("click", mainBack);
+//iteration 2
+showMyPosterButton.addEventListener("click", showMyPoster);
 
 // FUNCTIONS AND EVENT HANDLERS 👇
+
+//iteration 0
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
-};
-
+}
 
 function randomPoster() {
   var randomTitle = titles[getRandomIndex(titles)];
@@ -148,32 +150,36 @@ function randomPoster() {
   updateQuote.innerText = randomQuote;
   updateImg.src = randomImage;
   currentPoster = new Poster(randomImage, randomTitle, randomQuote);
-};
+}
 
+//iteration 1
 function unhideMainPoster() {
-    makePoster.classList.remove('hidden');
-    mainPoster.classList.add('hidden');
-  };
+    makePoster.classList.remove("hidden");
+    mainPoster.classList.add("hidden");
+}
 function unhideSavePoster() {
     savePoster.classList.remove("hidden");
     mainPoster.classList.add("hidden");
-  };
+}
 function nevermindBack() {
-  makePoster.classList.add('hidden');
-  mainPoster.classList.remove('hidden');
-};
+  makePoster.classList.add("hidden");
+  mainPoster.classList.remove("hidden");
+}
+
 function mainBack() {
   savePoster.classList.add("hidden");
   mainPoster.classList.remove("hidden");
-};
+}
 
-
-function userMakePoster() {
-  var newPoster = new Poster(
-    userInputImage.value,
-    userInputTitle.value,
-    userInputQuote.value,
-  )
-  images.push(newPoster.imageURL)
-  imageElement
+// iteration 2
+function showMyPoster(event){
+  event.preventDefault();
+  images.push(userInputImage.value);
+  titles.push(userInputTitle.value);
+  quotes.push(userInputQuote.value);
+  updateImg.src = userInputImage.value;
+  updateTitle.innerHTML = userInputTitle.value;
+  updateQuote.innerHTML = userInputQuote.value;
+  currentPoster = new Poster (userInputImage.value, userInputTitle.value, userInputQuote.value);
+  mainBack();
 }
