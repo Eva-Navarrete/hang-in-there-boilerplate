@@ -1,4 +1,4 @@
-// QUERY SELECTOR VARIABLES 👇
+// ❤️👇 QUERY SELECTOR VARIABLES 👇❤️
 //QS update
 var updateImg = document.querySelector(".poster-img");
 var updateTitle = document.querySelector(".poster-title");
@@ -17,12 +17,12 @@ var nevermindBackButton = document.querySelector(".show-main");
 var mainBackButton = document.querySelector(".back-to-main");
 var showMyPosterButton = document.querySelector(".make-poster");
 
-//QS USER ENTRIES
+//QS user entries
 var userInputImage= document.querySelector("#poster-image-url");
 var userInputTitle= document.querySelector("#poster-title");
 var userInputQuote= document.querySelector("#poster-quote");
 
-// PROVIDED DATA 👇
+// 💛👇 DATA 👇💛
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -123,7 +123,7 @@ var quotes = [
 var savedPosters = [];
 var currentPoster;
 
-// EVENT LISTNERS 👇
+// 💚👇 EVENT LISTNERS 👇💚
 //iteration 0
 window.addEventListener("load", randomPoster); //when window opens load randomPoster function
 buttonRandom.addEventListener("click", randomPoster); //button that is random does randomPoster function
@@ -135,7 +135,7 @@ mainBackButton.addEventListener("click", mainBack);
 //iteration 2
 showMyPosterButton.addEventListener("click", showMyPoster);
 
-// FUNCTIONS AND EVENT HANDLERS 👇
+// 💙👇 FUNCTIONS AND EVENT HANDLERS 👇💙
 
 //iteration 0
 function getRandomIndex(array) {
