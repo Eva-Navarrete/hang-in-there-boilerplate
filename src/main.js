@@ -141,6 +141,8 @@ mainBackButton.addEventListener("click", mainBack);
 showMyPosterButton.addEventListener("click", showMyPoster);
 savePosterButton1.addEventListener("click", addSavedPoster);
 
+savePosterGrid.addEventListener("dblclick", removeSavedPoster);
+
 
 
 // 💙👇 FUNCTIONS AND EVENT HANDLERS 👇💙
@@ -195,7 +197,6 @@ function showMyPoster(event){
 
 //iteration 3
 function addSavedPoster(event) {
-  // event.preventDefault();
   if (!savedPosters.includes(currentPoster)){
     savedPosters.push(currentPoster)
   };
@@ -204,7 +205,6 @@ function addSavedPoster(event) {
 
 function savedPostersGrid() {
   savePosterGrid.innerHTML = "";
-  console.log("Hello")
   for (var i = 0; i < savedPosters.length; i++) {
     savePosterGrid.innerHTML+=
       `<article class="mini-poster" id=${savedPosters[i].id}>
@@ -214,4 +214,15 @@ function savedPostersGrid() {
       </article>
       `;
   }
+}
+
+
+function removeSavedPoster(event) {
+  var posterId = event.target.id;
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (`${savedPosters[i].id}` === posterId) {
+      savedPosters.splice(i,1);
+    }
+  }
+  savedPostersGrid();
 }
