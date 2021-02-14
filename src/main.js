@@ -6,17 +6,17 @@ var updateQuote = document.querySelector(".poster-quote");
 
 //QS making poster page
 var mainPoster = document.querySelector(".main-poster");
-var makePoster = document.querySelector(".poster-form");
+var makePosterForm = document.querySelector(".poster-form");
 var savePoster = document.querySelector(".saved-posters");
 
 //QS buttons
-var buttonRandom = document.querySelector(".show-random");
-var makePosterButton = document.querySelector(".show-form");
-var savePosterButton = document.querySelector(".show-saved");
+var randomButtom = document.querySelector(".show-random");
+var showFormButton = document.querySelector(".show-form");
+var showSavedButton = document.querySelector(".show-saved");
 var nevermindBackButton = document.querySelector(".show-main");
 var mainBackButton = document.querySelector(".back-to-main");
 var showMyPosterButton = document.querySelector(".make-poster");
-
+var saveButton = document.querySelector(".save-poster");
 //QS user entries
 var userInputImage= document.querySelector("#poster-image-url");
 var userInputTitle= document.querySelector("#poster-title");
@@ -24,8 +24,6 @@ var userInputQuote= document.querySelector("#poster-quote");
 
 //QS save posters
 var savePosterGrid = document.querySelector(".saved-posters-grid");
-var savePosterButton1 = document.querySelector(".save-poster");
-
 
 // 💛👇 DATA 👇💛
 var images = [
@@ -131,15 +129,17 @@ var currentPoster;
 // 💚👇 EVENT LISTNERS 👇💚
 //iteration 0
 window.addEventListener("load", randomPoster); //when window opens load randomPoster function
-buttonRandom.addEventListener("click", randomPoster); //button that is random does randomPoster function
+randomButtom.addEventListener("click", randomPoster); //button that is random does randomPoster function
 //iteration1
-makePosterButton.addEventListener("click", unhideMainPoster);
+showFormButton.addEventListener("click", unhideMainPoster);
 nevermindBackButton.addEventListener("click", nevermindBack);
-savePosterButton.addEventListener("click", unhideSavePoster);
+showSavedButton.addEventListener("click", unhideSavePoster);
 mainBackButton.addEventListener("click", mainBack);
 //iteration 2
 showMyPosterButton.addEventListener("click", showMyPoster);
-savePosterButton1.addEventListener("click", addSavedPoster);
+saveButton.addEventListener("click", addSavedPoster);
+
+savePosterGrid.addEventListener("dblclick", removeSavedPoster);
 
 
 
@@ -162,7 +162,7 @@ function randomPoster() {
 
 //iteration 1
 function unhideMainPoster() {
-    makePoster.classList.remove("hidden");
+    makePosterForm.classList.remove("hidden");
     mainPoster.classList.add("hidden");
 }
 function unhideSavePoster() {
@@ -170,7 +170,7 @@ function unhideSavePoster() {
     mainPoster.classList.add("hidden");
   }
 function nevermindBack() {
-  makePoster.classList.add("hidden");
+  makePosterForm.classList.add("hidden");
   mainPoster.classList.remove("hidden");
 }
 
@@ -186,7 +186,7 @@ function showMyPoster(event){
   updateTitle.innerHTML = userInputTitle.value;
   updateQuote.innerHTML = userInputQuote.value;
   currentPoster = new Poster (userInputImage.value, userInputTitle.value, userInputQuote.value);
-  makePoster.classList.add("hidden");
+  makePosterForm.classList.add("hidden");
   savePoster.classList.remove("hidden");
   mainPoster.classList.add("hidden");
 
@@ -195,7 +195,6 @@ function showMyPoster(event){
 
 //iteration 3
 function addSavedPoster(event) {
-  // event.preventDefault();
   if (!savedPosters.includes(currentPoster)){
     savedPosters.push(currentPoster)
   };
@@ -204,7 +203,6 @@ function addSavedPoster(event) {
 
 function savedPostersGrid() {
   savePosterGrid.innerHTML = "";
-  console.log("Hello")
   for (var i = 0; i < savedPosters.length; i++) {
     savePosterGrid.innerHTML+=
       `<article class="mini-poster" id=${savedPosters[i].id}>
@@ -214,4 +212,15 @@ function savedPostersGrid() {
       </article>
       `;
   }
+}
+
+
+function removeSavedPoster(event) {
+  var posterId = event.target.id;
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (`${savedPosters[i].id}` === posterId) {
+      savedPosters.splice(i,1);
+    }
+  }
+  savedPostersGrid();
 }
