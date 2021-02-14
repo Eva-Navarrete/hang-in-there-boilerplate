@@ -139,7 +139,9 @@ savePosterButton.addEventListener("click", unhideSavePoster);
 mainBackButton.addEventListener("click", mainBack);
 //iteration 2
 showMyPosterButton.addEventListener("click", showMyPoster);
-savePosterButton1.addEventListener("click",addSavedPoster);
+savePosterButton1.addEventListener("click", addSavedPoster);
+
+
 
 // 💙👇 FUNCTIONS AND EVENT HANDLERS 👇💙
 
@@ -166,7 +168,7 @@ function unhideMainPoster() {
 function unhideSavePoster() {
     savePoster.classList.remove("hidden");
     mainPoster.classList.add("hidden");
-}
+  }
 function nevermindBack() {
   makePoster.classList.add("hidden");
   mainPoster.classList.remove("hidden");
@@ -184,15 +186,32 @@ function showMyPoster(event){
   updateTitle.innerHTML = userInputTitle.value;
   updateQuote.innerHTML = userInputQuote.value;
   currentPoster = new Poster (userInputImage.value, userInputTitle.value, userInputQuote.value);
+  makePoster.classList.add("hidden");
+  savePoster.classList.remove("hidden");
+  mainPoster.classList.add("hidden");
+
   mainBack();
 }
+
+//iteration 3
 function addSavedPoster(event) {
-  event.preventDefault();
+  // event.preventDefault();
   if (!savedPosters.includes(currentPoster)){
     savedPosters.push(currentPoster)
   };
+  savedPostersGrid()
 }
 
 function savedPostersGrid() {
-
+  savePosterGrid.innerHTML = "";
+  console.log("Hello")
+  for (var i = 0; i < savedPosters.length; i++) {
+    savePosterGrid.innerHTML+=
+      `<article class="mini-poster" id=${savedPosters[i].id}>
+      <img src="${savedPosters[i].imageURL}" alt="${savedPosters[i].altTxt}">
+      <h2>${savedPosters[i].title}</h2>
+      <h4>${savedPosters[i].quote}</h4>
+      </article>
+      `;
+  }
 }
