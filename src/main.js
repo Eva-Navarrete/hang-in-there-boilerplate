@@ -211,3 +211,14 @@ function savedPostersGrid() {
       `;
   }
 }
+
+
+function removeSavedPoster(event) {
+  var posterId = event.target.id;
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (`${savedPosters[i].id}` === posterId) {
+      savedPosters.splice(i,1);
+    }
+  }
+  savedPostersGrid();
+}
