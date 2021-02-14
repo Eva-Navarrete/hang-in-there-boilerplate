@@ -141,6 +141,8 @@ mainBackButton.addEventListener("click", mainBack);
 showMyPosterButton.addEventListener("click", showMyPoster);
 savePosterButton1.addEventListener("click", addSavedPoster);
 
+savedPostersGrid.addEventListener("dblclick", removeSavedPoster);
+
 
 
 // 💙👇 FUNCTIONS AND EVENT HANDLERS 👇💙
