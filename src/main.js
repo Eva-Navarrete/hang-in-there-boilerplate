@@ -1,15 +1,12 @@
-// ❤️👇 QUERY SELECTOR VARIABLES 👇❤️
-//QS update
 var updateImg = document.querySelector(".poster-img");
 var updateTitle = document.querySelector(".poster-title");
 var updateQuote = document.querySelector(".poster-quote");
 
-//QS making poster page
 var mainPoster = document.querySelector(".main-poster");
 var makePosterForm = document.querySelector(".poster-form");
 var savePoster = document.querySelector(".saved-posters");
+var savePosterGrid = document.querySelector(".saved-posters-grid");
 
-//QS buttons
 var randomButtom = document.querySelector(".show-random");
 var showFormButton = document.querySelector(".show-form");
 var showSavedButton = document.querySelector(".show-saved");
@@ -17,15 +14,13 @@ var nevermindBackButton = document.querySelector(".show-main");
 var mainBackButton = document.querySelector(".back-to-main");
 var showMyPosterButton = document.querySelector(".make-poster");
 var saveButton = document.querySelector(".save-poster");
-//QS user entries
-var userInputImage= document.querySelector("#poster-image-url");
-var userInputTitle= document.querySelector("#poster-title");
-var userInputQuote= document.querySelector("#poster-quote");
 
-//QS save posters
-var savePosterGrid = document.querySelector(".saved-posters-grid");
+var userInputImage = document.querySelector("#poster-image-url");
+var userInputTitle = document.querySelector("#poster-title");
+var userInputQuote = document.querySelector("#poster-quote");
 
-// 💛👇 DATA 👇💛
+
+
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -126,26 +121,20 @@ var quotes = [
 var savedPosters = [];
 var currentPoster;
 
-// 💚👇 EVENT LISTNERS 👇💚
-//iteration 0
-window.addEventListener("load", randomPoster); //when window opens load randomPoster function
-randomButtom.addEventListener("click", randomPoster); //button that is random does randomPoster function
-//iteration1
+
+window.addEventListener("load", randomPoster);
+randomButtom.addEventListener("click", randomPoster);
+
 showFormButton.addEventListener("click", unhideMainPoster);
 nevermindBackButton.addEventListener("click", nevermindBack);
 showSavedButton.addEventListener("click", unhideSavePoster);
 mainBackButton.addEventListener("click", mainBack);
-//iteration 2
+
 showMyPosterButton.addEventListener("click", showMyPoster);
 saveButton.addEventListener("click", addSavedPoster);
-
 savePosterGrid.addEventListener("dblclick", removeSavedPoster);
 
 
-
-// 💙👇 FUNCTIONS AND EVENT HANDLERS 👇💙
-
-//iteration 0
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -160,15 +149,46 @@ function randomPoster() {
   currentPoster = new Poster(randomImage, randomTitle, randomQuote);
 }
 
-//iteration 1
-function unhideMainPoster() {
-    makePosterForm.classList.remove("hidden");
-    mainPoster.classList.add("hidden");
+function showMyPoster(event) {
+  event.preventDefault();
+  updateImg.src = userInputImage.value;
+  updateTitle.innerHTML = userInputTitle.value;
+  updateQuote.innerHTML = userInputQuote.value;
+  currentPoster = new Poster(userInputImage.value, userInputTitle.value, userInputQuote.value);
+  makePosterForm.classList.add("hidden");
+  savePoster.classList.remove("hidden");
+  mainPoster.classList.add("hidden");
+
+  mainBack();
 }
-function unhideSavePoster() {
-    savePoster.classList.remove("hidden");
-    mainPoster.classList.add("hidden");
+
+function addSavedPoster(event) {
+  if (!savedPosters.includes(currentPoster)) {
+    savedPosters.push(currentPoster)
+  };
+  savedPostersGrid()
+}
+
+function removeSavedPoster(event) {
+  var posterId = event.target.id;
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (`${savedPosters[i].id}` === posterId) {
+      savedPosters.splice(i, 1);
+    }
   }
+  savedPostersGrid();
+}
+
+function unhideMainPoster() {
+  makePosterForm.classList.remove("hidden");
+  mainPoster.classList.add("hidden");
+}
+
+function unhideSavePoster() {
+  savePoster.classList.remove("hidden");
+  mainPoster.classList.add("hidden");
+}
+
 function nevermindBack() {
   makePosterForm.classList.add("hidden");
   mainPoster.classList.remove("hidden");
@@ -179,32 +199,10 @@ function mainBack() {
   mainPoster.classList.remove("hidden");
 }
 
-// iteration 2
-function showMyPoster(event){
-  event.preventDefault();
-  updateImg.src = userInputImage.value;
-  updateTitle.innerHTML = userInputTitle.value;
-  updateQuote.innerHTML = userInputQuote.value;
-  currentPoster = new Poster (userInputImage.value, userInputTitle.value, userInputQuote.value);
-  makePosterForm.classList.add("hidden");
-  savePoster.classList.remove("hidden");
-  mainPoster.classList.add("hidden");
-
-  mainBack();
-}
-
-//iteration 3
-function addSavedPoster(event) {
-  if (!savedPosters.includes(currentPoster)){
-    savedPosters.push(currentPoster)
-  };
-  savedPostersGrid()
-}
-
 function savedPostersGrid() {
   savePosterGrid.innerHTML = "";
   for (var i = 0; i < savedPosters.length; i++) {
-    savePosterGrid.innerHTML+=
+    savePosterGrid.innerHTML +=
       `<article class="mini-poster" id=${savedPosters[i].id}>
       <img src="${savedPosters[i].imageURL}" alt="${savedPosters[i].altTxt}">
       <h2>${savedPosters[i].title}</h2>
@@ -212,15 +210,4 @@ function savedPostersGrid() {
       </article>
       `;
   }
-}
-
-
-function removeSavedPoster(event) {
-  var posterId = event.target.id;
-  for (var i = 0; i < savedPosters.length; i++) {
-    if (`${savedPosters[i].id}` === posterId) {
-      savedPosters.splice(i,1);
-    }
-  }
-  savedPostersGrid();
 }
