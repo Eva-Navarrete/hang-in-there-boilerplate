@@ -1,3 +1,4 @@
+//
 var updateImg = document.querySelector(".poster-img");
 var updateTitle = document.querySelector(".poster-title");
 var updateQuote = document.querySelector(".poster-quote");
@@ -221,4 +222,5 @@ function removeSavedPoster(event) {
     }
   }
   savedPostersGrid();
+  
 }
